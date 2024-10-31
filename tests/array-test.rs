@@ -23,6 +23,54 @@ mod array_tests {
     }
 
     #[test]
+    fn find_test() {
+        #[derive(Debug, Clone, PartialEq, Default)]
+        struct User {
+            user: String,
+            age: u32,
+            active: bool,
+        }
+
+        let default_user = User {
+            user: "".to_string(),
+            age: 0,
+            active: false,
+        };
+
+        let users = vec![
+            User {
+                user: "barney".to_string(),
+                age: 36,
+                active: true,
+            },
+            User {
+                user: "fred".to_string(),
+                age: 40,
+                active: false,
+            },
+            User {
+                user: "pebbles".to_string(),
+                age: 1,
+                active: true,
+            },
+        ];
+
+        assert_eq!(
+            lodash_rust::find(&users, |user| user.age == 40),
+            User {
+                user: "fred".to_string(),
+                age: 40,
+                active: false,
+            },
+        );
+
+        assert_eq!(
+            lodash_rust::find(&users, |user| user.age > 140),
+            default_user
+        )
+    }
+
+    #[test]
     fn chunk_array_test() {
         let arr = vec![1, 2, 3, 4, 5];
         assert_eq!(
@@ -158,26 +206,33 @@ mod array_tests {
     #[test]
     fn slice_array_test() {
         let animals = vec!["ant", "bison", "camel", "duck", "elephant"];
-        assert_eq!(lodash_rust::slice(&animals, Some(2), None), ["camel", "duck", "elephant"]);
-        assert_eq!(lodash_rust::slice(&animals, Some(2), Some(4)), ["camel", "duck"]);
+        assert_eq!(
+            lodash_rust::slice(&animals, Some(2), None),
+            ["camel", "duck", "elephant"]
+        );
+        assert_eq!(
+            lodash_rust::slice(&animals, Some(2), Some(4)),
+            ["camel", "duck"]
+        );
     }
 
     #[test]
     fn sort_array_test() {
-        let numbers = vec![1,3,4,2,5];
-        assert_eq!(lodash_rust::sort(&numbers), [1,2,3,4,5]);
+        let numbers = vec![1, 3, 4, 2, 5];
+        assert_eq!(lodash_rust::sort(&numbers), [1, 2, 3, 4, 5]);
     }
 
     #[test]
     fn uniq_array_test() {
-        let numbers = vec![1,3,3,4,4,2,5];
-        assert_eq!(lodash_rust::uniq(&numbers), [1,3,4,2,5]);
+        let numbers = vec![1, 3, 3, 4, 4, 2, 5];
+        assert_eq!(lodash_rust::uniq(&numbers), [1, 3, 4, 2, 5]);
     }
 
     #[test]
     fn xor_array_test() {
-        let arr1 = vec![1,2];
-        let arr2= vec![2,3];
-        assert_eq!(lodash_rust::xor(&[&arr1, &arr2]), [1, 3]);
+        let arr1 = vec![3, 1];
+        let arr2 = vec![1, 2];
+        assert_eq!(lodash_rust::xor(&[&arr1, &arr2]), [3, 2]);
+        assert_eq!(lodash_rust::xor(&[&arr2, &arr1]), [2, 3]);
     }
 }

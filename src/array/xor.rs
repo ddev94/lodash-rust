@@ -1,18 +1,28 @@
+use std::collections::{HashMap, HashSet};
 use std::hash::Hash;
 
 pub fn xor<T: Eq + Hash + Clone>(arrays: &[&[T]]) -> Vec<T> {
-    let mut unique_counts = std::collections::HashMap::new();
+    let mut unique_counts = HashMap::new();
 
-    // Count occurrences of each element across all input arrays
+    // Remove duplicates within each array by converting to a HashSet
     for array in arrays {
-        for item in *array {
-            *unique_counts.entry(item.clone()).or_insert(0) += 1;
+        let unique_items: HashSet<_> = array.iter().cloned().collect();
+        for item in unique_items {
+            *unique_counts.entry(item).or_insert(0) += 1;
         }
     }
 
-    // Collect elements that occur exactly once
-    unique_counts
-        .into_iter()
-        .filter_map(|(item, count)| if count == 1 { Some(item) } else { None })
-        .collect()
+    // Collect elements that occur exactly once, preserving the order in arrays
+    let mut result = Vec::new();
+    for array in arrays {
+        for item in *array {
+            if let Some(1) = unique_counts.get(item) {
+                if !result.contains(item) {
+                    result.push(item.clone());
+                }
+            }
+        }
+    }
+
+    result
 }

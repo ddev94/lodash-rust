@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 pub fn find_index<T, F>(arr: &Vec<T>, f: F) -> i8
 where
     F: Fn(&T) -> bool,
