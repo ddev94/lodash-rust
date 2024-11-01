@@ -1,5 +1,5 @@
 [package]
-name = "lodash_rust"
+name = "lodashrust"
 version = "1.0.0"
 edition = "2021"
 
