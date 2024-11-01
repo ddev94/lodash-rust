@@ -1,6 +1,13 @@
 [package]
 name = "lodashrust"
+description = "Lodash-rust is a utility library delivering modularity similar to javaScript lodash"
 version = "1.0.0"
 edition = "2021"
-
+authors = ["ddev94 <ddev@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+include = [
+  "Cargo.toml",
+  "src/**/*"
+]
 [dependencies]
