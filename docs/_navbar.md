@@ -1,2 +1,1 @@
 * [En](/)
-* [chinese](/zh-cn/)
