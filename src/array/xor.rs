@@ -26,3 +26,11 @@ pub fn xor<T: Eq + Hash + Clone>(arrays: &[&[T]]) -> Vec<T> {
 
     result
 }
+
+#[test]
+fn xor_array_test() {
+    let arr1 = vec![3, 1];
+    let arr2 = vec![1, 2];
+    assert_eq!(xor(&[&arr1, &arr2]), [3, 2]);
+    assert_eq!(xor(&[&arr2, &arr1]), [2, 3]);
+}

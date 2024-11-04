@@ -11,3 +11,9 @@ pub fn capitalize(s: &str) -> String {
     // Combine them into a new string
     format!("{}{}", first_char, rest)
 }
+
+#[test]
+fn capitalize_test() {
+    assert_eq!(capitalize("Geeks for Geeks"), "Geeks for geeks");
+    assert_eq!(capitalize("GeeksforGeeks"), "Geeksforgeeks");
+}

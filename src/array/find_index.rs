@@ -18,3 +18,24 @@ where
         }
     }
 }
+
+#[test]
+fn find_integer_index_test() {
+    let arr = vec![1, 2, 3, 4];
+    assert_eq!(find_index(&arr, |&x| x == 2), 1);
+    assert_eq!(find_index(&arr, |&x| x == 5), -1);
+}
+
+#[test]
+fn find_string_index_test() {
+    let arr = vec!["Hello", "Lodash", "Rust"];
+    assert_eq!(find_index(&arr, |&x| x == "Rust"), 2);
+    assert_eq!(find_index(&arr, |&x| x == "Out"), -1);
+}
+
+#[test]
+fn find_char_index_test() {
+    let arr = vec!['r', 'u', 's', 't'];
+    assert_eq!(find_index(&arr, |&x| x == 't'), 3);
+    assert_eq!(find_index(&arr, |&x| x == 'z'), -1);
+}

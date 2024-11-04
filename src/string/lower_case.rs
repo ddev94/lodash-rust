@@ -21,3 +21,10 @@ pub fn lower_case(s: &str) -> String {
     // Trim leading and trailing spaces
     result.trim().to_string()
 }
+
+#[test]
+fn lower_case_test() {
+    assert_eq!(lower_case("--Foo-Bar--"), "foo bar");
+    assert_eq!(lower_case("fooBar"), "foobar");
+    assert_eq!(lower_case("__FOO_BAR__"), "foo bar");
+}

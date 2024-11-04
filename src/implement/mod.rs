@@ -1,3 +1,3 @@
-mod falsy;
+mod falsey;
 
-pub use falsy::*;
+pub use falsey::*;

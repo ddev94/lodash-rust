@@ -11,3 +11,10 @@ pub fn ends_with(s: &str, suffix: &str, position: Option<usize>) -> bool {
     // Check if the substring ends with the given suffix
     substring.ends_with(suffix)
 }
+
+#[test]
+fn ends_with_test() {
+    assert_eq!(ends_with("abc", "c", None), true);
+    assert_eq!(ends_with("abc", "b", Some(2)), true);
+    assert_eq!(ends_with("abc", "a", None), false);
+}

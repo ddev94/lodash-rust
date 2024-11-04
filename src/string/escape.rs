@@ -14,3 +14,15 @@ pub fn escape(s: &str) -> String {
 
     escaped_string
 }
+
+#[test]
+fn escape_with_test() {
+    assert_eq!(
+        escape("fred, barney, & pebbles"),
+        "fred, barney, &amp; pebbles"
+    );
+    assert_eq!(
+        escape("fred, barney, <script>aaa</script> pebbles"),
+        "fred, barney, &lt;script&gt;aaa&lt;/script&gt; pebbles"
+    );
+}

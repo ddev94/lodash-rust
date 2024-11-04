@@ -14,10 +14,21 @@ pub fn camel_case(s: &str) -> String {
             camel_cased.push_str(&segment.to_lowercase());
         } else {
             // Subsequent segments should be capitalized
-            let capitalized = format!("{}{}", segment.chars().next().unwrap().to_uppercase(), &segment[1..]);
+            let capitalized = format!(
+                "{}{}",
+                segment.chars().next().unwrap().to_uppercase(),
+                &segment[1..]
+            );
             camel_cased.push_str(&capitalized);
         }
     }
 
     camel_cased
+}
+
+#[test]
+fn camel_case_test() {
+    assert_eq!(camel_case("Geeks for Geeks"), "geeksForGeeks");
+    assert_eq!(camel_case("Geeks-for-Geeks"), "geeksForGeeks");
+    assert_eq!(camel_case("Geeks_for_Geeks"), "geeksForGeeks");
 }

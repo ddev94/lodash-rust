@@ -14,6 +14,12 @@ pub fn fill_range<T: Clone, F: Into<T>>(arr: &[T], value: F, start: usize, end: 
     for i in start..end {
         new_arr[i] = value.clone(); // Fill the specified range
     }
-    
+
     new_arr
+}
+
+#[test]
+fn fill_array_test() {
+    assert_eq!(fill(&vec![1, 2, 3], 2), vec![2, 2, 2]);
+    assert_eq!(fill(&vec![1, 2, 3], 0), vec![0, 0, 0]);
 }

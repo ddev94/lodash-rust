@@ -16,3 +16,12 @@ where
 
     kept
 }
+
+#[test]
+fn remove_if_array_test() {
+    assert_eq!(remove_if(&vec![1, 2, 3], |&n| n % 2 == 0), [1, 3]);
+    assert_eq!(
+        remove_if(&vec![1, 2, 3, 4, 5, 6], |&n| n == 6),
+        [1, 2, 3, 4, 5]
+    );
+}

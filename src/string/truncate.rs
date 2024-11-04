@@ -18,7 +18,7 @@ pub fn truncate(s: &str, options: Option<TruncateOptions>) -> String {
     let opts = options.unwrap_or_default();
     let length = opts.length;
     let omission = opts.omission;
-    
+
     // If string is shorter than target length, return it as is
     if s.len() <= length {
         return s.to_string();
@@ -40,7 +40,7 @@ pub fn truncate_simple(s: &str, length: usize, omission: &str) -> String {
     // Find the char boundary
     let mut chars = s.char_indices();
     let mut last_valid_idx = 0;
-    
+
     while let Some((idx, _)) = chars.next() {
         if idx > available_length {
             break;
@@ -90,4 +90,97 @@ pub fn truncate_by_separator(s: &str, length: usize, separator: &str, omission: 
 
     result.push_str(omission);
     result
+}
+
+#[test]
+fn test_truncate() {
+    // Test default behavior
+    assert_eq!(
+        truncate("hi-diddly-ho there, neighborino", None),
+        "hi-diddly-ho there, neighbo..."
+    );
+
+    // Test with custom length and space separator
+    assert_eq!(
+        truncate(
+            "hi-diddly-ho there, neighborino",
+            Some(TruncateOptions {
+                length: 24,
+                separator: Some(" "),
+                omission: "..."
+            })
+        ),
+        "hi-diddly-ho there,..."
+    );
+
+    // Test with comma-space separator
+    assert_eq!(
+        truncate(
+            "hi-diddly-ho there, neighborino",
+            Some(TruncateOptions {
+                length: 24,
+                separator: Some(", "),
+                omission: "..."
+            })
+        ),
+        "hi-diddly-ho there..."
+    );
+
+    // Test with hyphen separator
+    assert_eq!(
+        truncate(
+            "hi-diddly-ho-there-neighborino",
+            Some(TruncateOptions {
+                length: 24,
+                separator: Some("-"),
+                omission: "..."
+            })
+        ),
+        "hi-diddly-ho-there..."
+    );
+
+    // Test with custom omission
+    assert_eq!(
+        truncate(
+            "hi-diddly-ho there, neighborino",
+            Some(TruncateOptions {
+                length: 30,
+                separator: None,
+                omission: " [...]"
+            })
+        ),
+        "hi-diddly-ho there, neig [...]"
+    );
+
+    // Test short string
+    assert_eq!(truncate("short", None), "short");
+
+    // Test empty string
+    assert_eq!(truncate("", None), "");
+
+    // Test Unicode support
+    assert_eq!(
+        truncate(
+            "Hello 👋 World",
+            Some(TruncateOptions {
+                length: 8,
+                separator: None,
+                omission: "..."
+            })
+        ),
+        "Hello..."
+    );
+
+    // Test with separator at the end
+    assert_eq!(
+        truncate(
+            "one, two, three, ",
+            Some(TruncateOptions {
+                length: 15,
+                separator: Some(", "),
+                omission: "..."
+            })
+        ),
+        "one, two..."
+    );
 }

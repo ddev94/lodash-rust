@@ -17,3 +17,9 @@ where
 
     unique_vec
 }
+
+#[test]
+fn uniq_array_test() {
+    let numbers = vec![1, 3, 3, 4, 4, 2, 5];
+    assert_eq!(uniq(&numbers), [1, 3, 4, 2, 5]);
+}

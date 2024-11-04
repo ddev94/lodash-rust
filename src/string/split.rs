@@ -8,3 +8,9 @@ pub fn split(s: &str, delimiter: &str, limit: Option<usize>) -> Vec<String> {
         None => parts.into_iter().map(String::from).collect(),
     }
 }
+
+#[test]
+fn split_test() {
+    assert_eq!(split("Foo~Bar", "~", None), vec!["Foo", "Bar"]);
+    assert_eq!(split("Foo~Bar~The", "~", Some(2)), vec!["Foo", "Bar"]);
+}

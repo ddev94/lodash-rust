@@ -21,3 +21,10 @@ pub fn snake_case(s: &str) -> String {
     // Trim leading and trailing underscores
     result.trim_matches('_').to_string()
 }
+
+#[test]
+fn snake_case_test() {
+    assert_eq!(snake_case("Foo Bar"), "foo_bar");
+    assert_eq!(snake_case("fooBar"), "foobar");
+    assert_eq!(snake_case("--FOO-BAR--"), "foo_bar");
+}
